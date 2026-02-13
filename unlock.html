@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Secret Love Letter</title>
+
+<style>
+body{
+  margin:0;
+  padding:0;
+  color:white;
+  text-align:center;
+  font-family:'Comic Sans MS', cursive;
+  overflow:hidden;
+  background:url("Photo8.jpg") no-repeat center center fixed;
+  background-size:cover;
+}
+
+body::before{
+  content:"";
+  position:fixed;
+  inset:0;
+  backdrop-filter:blur(12px);
+  background:rgba(0,0,0,0.5);
+  z-index:-1;
+}
+
+.container{
+  margin-top:120px;
+}
+
+h1{
+  font-size:40px;
+  color:#ff4da6;
+  text-shadow:0 0 20px pink;
+}
+
+.question{
+  font-size:28px;
+  margin:30px;
+}
+
+input{
+  padding:12px;
+  font-size:18px;
+  border-radius:8px;
+  border:none;
+}
+
+button{
+  padding:12px 25px;
+  font-size:18px;
+  border:none;
+  border-radius:10px;
+  background:red;
+  color:white;
+  cursor:pointer;
+  margin:15px;
+  position:relative;
+}
+
+.bubble{
+  position:absolute;
+  background:rgba(255,0,0,0.8);
+  padding:10px;
+  border-radius:20px;
+  font-size:14px;
+  animation:pop 4s linear infinite;
+}
+
+@keyframes pop{
+  from{transform:scale(0);}
+  to{transform:scale(1.2);}
+}
+</style>
+</head>
+
+<body>
+
+<div class="container" id="mainBox">
+  <h1>Valentine Questions for my Forever Valentine 💖</h1>
+  <div id="content">
+    <button id="startBtn">Start 💘</button>
+  </div>
+</div>
+
+<!-- Background music -->
+<audio id="bgMusic" loop>
+  <source src="Audio/music.mp3" type="audio/mpeg">
+  Your browser does not support the audio element.
+</audio>
+
+<script>
+
+let step = 0;
+
+// Start button click
+document.getElementById("startBtn").addEventListener("click", function(){
+  // play music
+  let music = document.getElementById("bgMusic");
+  music.volume = 0.5; // optional: adjust volume
+  music.play().catch(err=>{
+    console.log("Music play failed. Click allowed for autoplay.");
+  });
+  
+  // start questions
+  startQuestions();
+});
+
+function startQuestions(){
+  showQuestion1();
+}
+
+function runAwayNo(btn){
+  btn.style.position="absolute";
+  btn.style.top=Math.random()*500+"px";
+  btn.style.left=Math.random()*800+"px";
+}
+
+function showQuestion1(){
+  document.getElementById("content").innerHTML=`
+    <div class="question">1. kya aap pagal hai?</div>
+    <button onclick="showText1()">Yes</button>
+    <button onmouseover="runAwayNo(this)">No</button>
+  `;
+}
+
+function showText1(){
+  document.getElementById("content").innerHTML=`
+    <div class="question">mere pyar me cutie :)</div>
+    <button onclick="showQuestion2()">Yes</button>
+  `;
+}
+
+function showQuestion2(){
+  document.getElementById("content").innerHTML=`
+    <div class="question">2. apne chori kiya hai?</div>
+    <button onclick="showText2()">Yes</button>
+    <button onmouseover="runAwayNo(this)">No</button>
+  `;
+}
+
+function showText2(){
+  document.getElementById("content").innerHTML=`
+    <div class="question">Mera dil jaanu :)</div>
+    <button onclick="showQuestion3()">Yes</button>
+  `;
+}
+
+function showQuestion3(){
+  document.getElementById("content").innerHTML=`
+    <div class="question">3. kya aap kaatil ho?</div>
+    <button onclick="showText3()">Yes</button>
+    <button onmouseover="runAwayNo(this)">No</button>
+  `;
+}
+
+function showText3(){
+  document.getElementById("content").innerHTML=`
+    <div class="question">meri taqlifo ki yaarrr :)</div>
+    <button onclick="showPassword()">Yes</button>
+  `;
+}
+
+function showPassword(){
+  document.getElementById("content").innerHTML=`
+    <p>Enter Password</p>
+    <input type="password" id="pass" placeholder="Hint: It's a Name">
+    <br>
+    <button id="enterBtn" onmouseover="runAway()" onclick="checkPass()">Enter</button>
+  `;
+}
+
+/* ====== ORIGINAL FUNCTIONS (UNCHANGED) ====== */
+
+function checkPass(){
+  // get input value
+  let p = document.getElementById("pass").value;
+
+  // remove leading/trailing spaces
+  p = p.trim();
+
+  // convert to lowercase
+  let pLower = p.toLowerCase();
+
+  // allow any of these
+  if(pLower === "hayaat" || pLower === "hayat"){
+    spreadButtons();
+  } else {
+    bubbles();
+  }
+}
+
+
+
+
+function runAway(){
+  let p = document.getElementById("pass").value.trim().toLowerCase(); // normalize input
+
+  // if password is NOT one of the allowed variations, button runs away
+  if(p !== "hayaat" && p !== "hayat"){
+    let btn = document.getElementById("enterBtn");
+    btn.style.position = "absolute";
+    btn.style.top = Math.random() * 500 + "px";
+    btn.style.left = Math.random() * 800 + "px";
+  }
+}
+
+
+function bubbles(){
+  for(let i=0;i<25;i++){
+    let b=document.createElement("div");
+    b.className="bubble";
+    b.innerText="Wrong Password!";
+    b.style.top=Math.random()*600+"px";
+    b.style.left=Math.random()*1000+"px";
+    document.body.appendChild(b);
+  }
+}
+
+function spreadButtons(){
+  // stop music when Enter buttons appear
+  let music = document.getElementById("bgMusic");
+  music.pause();
+
+  document.body.innerHTML="";
+
+  for(let i=0;i<20;i++){
+    let btn=document.createElement("button");
+    btn.innerText="Enter ❤️";
+    btn.style.position="absolute";
+    btn.style.top=Math.random()*600+"px";
+    btn.style.left=Math.random()*1000+"px";
+
+    btn.onclick=function(){
+      window.location.href="letter.html";
+    };
+
+    document.body.appendChild(btn);
+  }
+}
+
+</script>
+
+</body>
+</html>

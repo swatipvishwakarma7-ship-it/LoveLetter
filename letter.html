@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Our Love Story ❤️</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Poppins:wght@300;600&display=swap" rel="stylesheet">
+
+<style>
+body{
+  margin:0;
+  height:100vh;
+  overflow:hidden;
+  font-family:Poppins;
+}
+
+.hearts-container{
+  position:fixed;
+  top:0;
+  left:0;
+  width:100%;
+  height:100%;
+  pointer-events:none;
+  overflow:hidden;
+  z-index:5;
+}
+
+.heart{
+  position:absolute;
+  bottom:-50px;
+  font-size:20px;
+  animation: floatUp 6s linear infinite;
+  opacity:0.8;
+}
+
+@keyframes floatUp{
+  0%{
+    transform: translateY(0) scale(0.8);
+    opacity:0;
+  }
+  20%{opacity:1;}
+  100%{
+    transform: translateY(-100vh) scale(1.4);
+    opacity:0;
+  }
+}
+
+/* Blurred background */
+body::before{
+  content:"";
+  position:fixed;
+  inset:0;
+  background:url("Photo8.jpeg") center/cover no-repeat;
+  filter:blur(12px) brightness(0.4);
+  z-index:-1;
+}
+
+/* Start Button */
+#startBtn{
+  position:absolute;
+  top:50%;
+  left:50%;
+  transform:translate(-50%,-50%);
+  padding:20px 40px;
+  font-size:28px;
+  border:none;
+  border-radius:12px;
+  background:#ff4d6d;
+  color:white;
+  cursor:pointer;
+  box-shadow:0 0 25px black;
+}
+
+/* Frame */
+#frame{
+  position:absolute;
+  top:50%;
+  left:50%;
+  transform:translate(-50%,-50%);
+  width:75vw;
+  height:75vh;
+  border-radius:25px;
+  overflow:hidden;
+  box-shadow:0 0 60px rgba(0,0,0,0.9);
+  display:none;
+}
+
+/* Blur inside frame */
+#frame::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  background:url("Photo8.jpeg") center/cover no-repeat;
+  filter:blur(20px) brightness(0.5);
+  z-index:-1;
+}
+
+/* Photo */
+#photo{
+  width:100%;
+  height:100%;
+  object-fit:contain;
+}
+
+/* Zoom animation */
+.zoom{
+  animation: zoomInOut 2s ease-in-out, fadeOut 2s ease-in-out;
+}
+
+@keyframes zoomInOut{
+  0%{transform:scale(1.3); opacity:0}
+  20%{transform:scale(1)}
+  80%{transform:scale(1.05)}
+  100%{transform:scale(1.1)}
+}
+
+@keyframes fadeOut{
+  0%{opacity:1}
+  70%{opacity:1}
+  100%{opacity:0}
+}
+
+
+/* Top note */
+#note{
+  position:absolute;
+  top:15px;
+  width:100%;
+  text-align:center;
+  color:#fff;
+  font-size:46px;
+  font-family:'Great Vibes', cursive;
+  text-shadow:0 0 10px #000,0 0 20px #000,0 0 40px #000;
+  display:none;
+}
+
+/* Bottom text */
+#bottom{
+  position:absolute;
+  bottom:60px;
+  width:100%;
+  text-align:center;
+  color:#ffd6e0;
+  font-size:36px;
+  font-family:'Great Vibes', cursive;
+  text-shadow:0 0 10px #000,0 0 25px #000,0 0 50px #000;
+  animation:glow 2s infinite alternate;
+  display:none;
+}
+
+@keyframes glow{
+  from{letter-spacing:2px}
+  to{letter-spacing:8px}
+}
+
+/* Pause Button */
+#pauseBtn{
+  position:absolute;
+  bottom:10px;
+  left:50%;
+  transform:translateX(-50%);
+  padding:10px 25px;
+  font-size:18px;
+  border:none;
+  border-radius:8px;
+  background:#ffffffcc;
+  cursor:pointer;
+  display:none;
+}
+</style>
+</head>
+
+<body>
+
+<div class="hearts-container"></div>
+
+<button id="startBtn">Click to Start Love Story ❤️</button>
+
+<div id="note"></div>
+
+<div id="frame">
+  <img id="photo">
+</div>
+
+<div id="bottom">
+  Shiv loves Swati<br>
+  Ever and Forever ❤️
+</div>
+
+<button id="pauseBtn">Pause</button>
+
+<!-- AUDIO PATH FIXED -->
+<audio id="song" src="Audio/song.mp3"></audio>
+
+<script>
+const photos=[
+"Photo1.jpeg","Photo2.jpeg","Photo3.jpeg","Photo4.jpeg",
+"Photo5.jpeg","Photo6.jpeg","Photo7.jpeg","Photo8.jpeg",
+"Photo9.jpeg","Photo10.jpeg","Photo11.jpeg","Photo12.jpeg",
+"Photo14.jpeg","Photo15.jpeg","Photo16.jpeg",
+"Photo17.jpeg","Photo18.jpeg","Photo19.jpeg","Photo20.jpeg",
+"Photo21.jpeg","Photo22.jpeg","Photo23.jpeg","Photo24.jpeg",
+"Photo25.jpeg","Photo27.jpeg",
+"Photo29.jpeg","Photo30.jpeg","Photo31.jpeg","Photo32.jpeg",
+"Photo34.jpeg","Photo35.jpeg","Photo36.jpeg",
+"Photo37.jpeg","Photo38.jpeg","Photo39.jpeg","Photo40.jpeg",
+"Photo41.jpeg"
+];
+
+const notes = [
+"When I first saw you ❤️",
+"My heart found its home in you 💕",
+"Every moment with you feels special",
+"You make my world brighter",
+"I still smile thinking about you",
+"You are my sweetest hello",
+"And my hardest goodbye",
+"Life feels beautiful with you",
+"You are my calm in every storm",
+"I am lucky to have you",
+"You complete my incomplete heart",
+"With you, everything feels right",
+"You are my happy place",
+"My day starts and ends with you",
+"You are my forever dream",
+"I fall for you every single day",
+"Your smile is my strength",
+"You are the best part of me",
+"I see my future in your eyes",
+"Loving you is my favorite habit",
+"You make ordinary moments magical",
+"You are my heartbeat",
+"I found love when I found you",
+"You are my safe place",
+"My life changed when you came",
+"You are my destiny",
+"I belong with you",
+"Your love completes me",
+"You are my endless happiness",
+"I feel at peace with you",
+"You are my sweetest blessing",
+"I thank life for giving me you",
+"You are my today and tomorrow",
+"My world begins with you",
+"You are the reason I smile more",
+"I love every little thing about you",
+"You are my forever person",
+"My heart beats only for you",
+"You are my most beautiful memory",
+"I choose you, always",
+"Forever isn’t enough with you ❤️"
+];
+
+
+const song=document.getElementById("song");
+const photo=document.getElementById("photo");
+const note=document.getElementById("note");
+const btn=document.getElementById("startBtn");
+const frame=document.getElementById("frame");
+const bottom=document.getElementById("bottom");
+const pauseBtn=document.getElementById("pauseBtn");
+
+let i=0;
+let interval;
+let paused=false;
+
+btn.onclick=function(){
+  btn.style.display="none";
+  frame.style.display="block";
+  note.style.display="block";
+  bottom.style.display="block";
+  pauseBtn.style.display="block";
+
+  song.play();
+
+  const duration = 87; // fallback
+  const photoInterval = (duration*1000)/photos.length;
+
+  interval=setInterval(show,photoInterval);
+};
+
+function show(){
+  if(paused) return;
+
+  photo.src=photos[i];
+  photo.classList.remove("zoom");
+  void photo.offsetWidth;
+  photo.classList.add("zoom");
+
+  note.innerText=notes[i % notes.length];
+
+  i++;
+  if(i>=photos.length){
+    clearInterval(interval);
+  }
+}
+
+function createHeart(){
+  const heart = document.createElement("div");
+  heart.className = "heart";
+  const icons = ["❤️","💖","💕","💗","🫧","❄️"];
+  heart.innerHTML = icons[Math.floor(Math.random()*icons.length)];
+
+
+  heart.style.left = Math.random()*100 + "vw";
+  heart.style.animationDuration = (4 + Math.random()*3) + "s";
+  heart.style.fontSize = (15 + Math.random()*25) + "px";
+
+  document.querySelector(".hearts-container").appendChild(heart);
+
+  setTimeout(()=>{
+    heart.remove();
+  },7000);
+}
+
+setInterval(createHeart, 300);
+
+/* Pause / Play */
+pauseBtn.onclick=function(){
+  paused=!paused;
+
+  if(paused){
+    song.pause();
+    pauseBtn.innerText="Play";
+  }else{
+    song.play();
+    pauseBtn.innerText="Pause";
+  }
+};
+</script>
+
+</body>
+</html>
