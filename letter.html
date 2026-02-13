@@ -104,21 +104,31 @@ body::before{
 
 /* Zoom animation */
 .zoom{
-  animation: zoomInOut 2s ease-in-out, fadeOut 2s ease-in-out;
+  animation: zoomInFadeOut 2s ease-in-out forwards;
 }
 
-@keyframes zoomInOut{
-  0%{transform:scale(1.3); opacity:0}
-  20%{transform:scale(1)}
-  80%{transform:scale(1.05)}
-  100%{transform:scale(1.1)}
+@keyframes zoomInFadeOut{
+  0%{
+    transform: scale(1.4);
+    opacity: 0;
+  }
+
+  20%{
+    transform: scale(1);
+    opacity: 1;
+  }
+
+  70%{
+    transform: scale(1);
+    opacity: 1;
+  }
+
+  100%{
+    transform: scale(1);
+    opacity: 0;
+  }
 }
 
-@keyframes fadeOut{
-  0%{opacity:1}
-  70%{opacity:1}
-  100%{opacity:0}
-}
 
 
 /* Top note */
@@ -331,3 +341,4 @@ pauseBtn.onclick=function(){
 
 </body>
 </html>
+
